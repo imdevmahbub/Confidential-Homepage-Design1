@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revamp365.ai — Better data. Smarter comps. Free forever.</title>
+<meta name="description" content="Free-forever property research workspace for real estate investors. Search properties, run comps, underwrite deals and build AI voice agents.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-950:#050914; --navy-900:#070D1F; --navy-800:#0B1430; --navy-700:#131F45; --navy-600:#1C2C5E;
+  --gold:#EAB93E; --gold-2:#F7D576; --gold-deep:#C99A1F; --gold-ink:#2A2003;
+  --green:#2ECC8A; --green-deep:#0E9B63; --mint:#D9F8E8; --teal:#2DD4BF;
+  --ink:#0B1430; --muted:#5C667E; --muted-light:#9AA3BD;
+  --line:#E6E9F0; --line-dark:rgba(255,255,255,.12);
+  --bg-light:#F6F7FA; --card:#FFFFFF;
+  --radius:18px; --radius-sm:12px;
+  --shadow:0 20px 60px rgba(7,13,31,.14); --shadow-dark:0 30px 80px rgba(0,0,0,.45);
+  --font-h:'Sora',sans-serif; --font-b:'Inter',sans-serif;
+  --max:1200px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{animation:none!important; transition:none!important}}
+body{margin:0; font-family:var(--font-b); color:var(--ink); background:#fff; line-height:1.6; -webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%; display:block}
+:focus-visible{outline:3px solid var(--gold); outline-offset:3px; border-radius:6px}
+.skip{position:absolute; left:-9999px; top:0; background:var(--gold); color:#000; padding:10px 16px; z-index:200; border-radius:0 0 10px 0; font-weight:700}
+.skip:focus{left:0}
+.wrap{max-width:var(--max); margin:0 auto; padding:0 24px}
+.eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:11px; letter-spacing:.14em; font-weight:700; text-transform:uppercase}
+.eyebrow i{width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 0 6px rgba(46,204,138,.18); display:inline-block}
+h1,h2,h3{font-family:var(--font-h); line-height:1.08; letter-spacing:-.02em; margin:0}
+p{margin:0}
+/* HEADER */
+header{position:sticky; top:0; z-index:100; background:rgba(5,9,20,.82); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-bottom:1px solid rgba(255,255,255,.08); transition:.3s}
+header.scrolled{background:rgba(5,9,20,.96); box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.nav{display:flex; align-items:center; justify-content:space-between; height:70px; gap:16px}
+.brand{display:flex; align-items:center; gap:6px; text-decoration:none; color:#fff}
+.brand-mark{width:38px; height:38px; border-radius:11px; background:linear-gradient(135deg,#0E1A3A 0%,#1A2B63 100%); border:1px solid rgba(234,185,62,.45); display:grid; place-items:center; position:relative; overflow:hidden; flex-shrink:0}
+.brand-mark:after{content:""; position:absolute; inset:0; background:radial-gradient(60% 60% at 70% 20%,rgba(234,185,62,.35),transparent)}
+.brand-mark svg{width:24px; height:24px; z-index:1}
+.brand-name{font-family:var(--font-h); font-weight:700; font-size:16px; line-height:.001; letter-spacing:-.001em}
+.brand-name span{color:var(--gold-2); font-weight:700}
+.brand-sub{font-size:10px; letter-spacing:.18em; color:#9AA3BD; font-weight:600}
+.nav-links{display:flex; align-items:center; gap:28px; color:#CBD3E6; font-size:14.5px; font-weight:500}
+.nav-links a{text-decoration:none; opacity:.92} .nav-links a:hover{color:#fff}
+.nav-links .dot{width:4px; height:4px; border-radius:50%; background:#2A355E}
+.nav-cta{display:flex; align-items:center; gap:12px}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:9px; font-weight:700; font-size:14.5px; border-radius:100px; padding:13px 22px; text-decoration:none; cursor:pointer; border:1px solid transparent; min-height:46px; transition:.22s; white-space:nowrap}
+.btn-gold{background:linear-gradient(180deg,var(--gold-2),var(--gold) 60%,#D8A91F); color:#1A1400; box-shadow:0 8px 24px rgba(234,185,62,.35), inset 0 1px 0 rgba(255,255,255,.6)}
+.btn-gold:hover{transform:translateY(-1px); box-shadow:0 14px 32px rgba(234,185,62,.45)}
+.btn-outline{border-color:rgba(255,255,255,.28); color:#fff; background:rgba(255,255,255,.06)}
+.btn-outline:hover{background:rgba(255,255,255,.12); border-color:#fff}
+.btn-dark{background:var(--navy-900); color:#fff}
+.btn-light{background:#fff; color:var(--navy-900); border-color:var(--line)}
+.login-link{color:#fff; text-decoration:none; font-weight:600; font-size:14.5px; padding:10px 8px}
+.login-link:hover{color:var(--gold-2)}
+.burger{display:none; background:none; border:1px solid rgba(255,255,255,.2); border-radius:10px; width:44px; height:44px; color:#fff; cursor:pointer; place-items:center}
+.mobile-menu{display:none; background:#080E22; border-top:1px solid rgba(255,255,255,.08); padding:16px 24px 20px}
+/* HERO */
+.hero{position:relative; background:var(--navy-950); color:#EAF0FF; overflow:hidden}
+.hero-bg{position:absolute; inset:0; pointer-events:none}
+.hero-bg .photo{position:absolute; inset:0; opacity:.34}
+.hero-bg .photo img{width:100%; height:100%; object-fit:cover; filter:saturate(1.1)}
+.hero-bg:after{content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(5,9,20,.72) 0%,rgba(5,9,20,.88) 45%, #050914 100%), radial-gradient(700px 400px at 15% 15%,rgba(46,204,138,.22),transparent), radial-gradient(800px 500px at 85% 10%,rgba(234,185,62,.22),transparent), linear-gradient(transparent, #050914)}
+.hero-grid-bg{position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px); background-size:56px 56px; mask-image:radial-gradient(70% 70% at 50% 30%,black,transparent)}
+.hero-inner{position:relative; z-index:2; display:grid; grid-template-columns:1.02fr .98fr; gap:48px; align-items:center; padding:54px 0 34px}
+.hero-badge{display:inline-flex; align-items:center; gap:10px; background:rgba(234,185,62,.12); border:1px solid rgba(234,185,62,.4); color:var(--gold-2); font-size:12px; font-weight:700; letter-spacing:.12em; padding:8px 14px; border-radius:100px}
+.hero-badge .pulse{width:8px; height:8px; background:var(--green); border-radius:50%; box-shadow:0 0 0 0 rgba(46,204,138,.6); animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(46,204,138,0)}100%{box-shadow:0 0 0 0 rgba(46,204,138,0)}}
+.hero h1{font-size:clamp(38px,5.2vw,64px); font-weight:800; margin:18px 0 16px; color:#fff}
+.hero h1 em{font-style:normal; background:linear-gradient(90deg,var(--gold-2),var(--gold)); -webkit-background-clip:text; background-clip:text; color:transparent}
+.hero-sub{color:#B9C2D8; font-size:17px; max-width:520px}
+.hero-cta{display:flex; gap:12px; margin:24px 0 14px; flex-wrap:wrap}
+.reassure{display:flex; gap:18px; flex-wrap:wrap; font-size:13.5px; color:#9AA3BD; font-weight:500}
+.reassure span{display:inline-flex; align-items:center; gap:7px}
+.reassure svg{width:16px; height:16px}
+.hero-mini{display:flex; gap:10px; margin-top:18px; flex-wrap:wrap}
+.hero-mini div{font-size:12.5px; color:#CBD3E6; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); padding:7px 12px; border-radius:100px}
+/* product mock */
+.browser{background:rgba(11,20,48,.9); border:1px solid rgba(255,255,255,.14); border-radius:20px; overflow:hidden; box-shadow:var(--shadow-dark); backdrop-filter:blur(10px)}
+.browser-top{display:flex; align-items:center; gap:8px; padding:12px 16px; border-bottom:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.04)}
+.browser-top span{width:10px; height:10px; border-radius:50%; background:#2A355E} .browser-top span:first-child{background:#FF5F57} .browser-top span:nth-child(2){background:var(--gold)} .browser-top span:nth-child(3){background:var(--green)}
+.browser-url{margin-left:8px; flex:1; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1); border-radius:8px; font-size:12.5px; padding:7px 12px; color:#CBD3E6; display:flex; align-items:center; gap:8px}
+.browser-body{padding:18px; display:grid; gap:14px}
+.search-row{display:flex; gap:10px}
+.search-row input{flex:1; background:#070D22; border:1px solid rgba(255,255,255,.14); border-radius:12px; padding:13px 14px; color:#fff; font-size:14px; min-height:46px}
+.search-row input::placeholder{color:#6B7693}
+.search-row button{background:var(--gold); border:0; border-radius:12px; padding:0 18px; font-weight:800; cursor:pointer; min-height:46px; min-width:88px}
+.prop-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:14px}
+.prop-card{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03)); border:1px solid rgba(255,255,255,.12); border-radius:14px; overflow:hidden}
+.prop-card img{height:132px; width:100%; object-fit:cover}
+.prop-card .pc{padding:12px 14px}
+.pc h4{margin:0; font-size:14px; color:#fff} .pc p{font-size:12px; color:#9AA3BD}
+.valuation{background:rgba(46,204,138,.1); border:1px solid rgba(46,204,138,.3); border-radius:14px; padding:14px}
+.valuation small{color:#8FE8BB; font-weight:700; letter-spacing:.1em; font-size:11px}
+.valuation strong{font-size:28px; color:#fff; font-family:var(--font-h)}
+.comp-bars{display:flex; align-items:end; gap:6px; height:56px; margin-top:10px}
+.comp-bars i{flex:1; border-radius:6px 6px 3px 3px; background:linear-gradient(180deg,var(--green),rgba(46,204,138,.3))}
+.comp-bars i:nth-child(2n){background:linear-gradient(180deg,var(--gold-2),rgba(234,185,62,.3))}
+.float-row{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px}
+.float-row div{background:#0A1330; border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:10px 12px}
+.float-row b{color:#fff; font-size:14px} .float-row span{font-size:11px; color:#9AA3BD; display:block}
+.live-dot{display:inline-flex; align-items:center; gap:6px; font-size:11px; color:#8FE8BB; font-weight:700}
+.hero-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:26px 0 0; position:relative; z-index:2; padding-bottom:38px}
+.hero-stats div{background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:14px; padding:14px 16px}
+.hero-stats b{color:#fff; font-family:var(--font-h); font-size:18px} .hero-stats span{font-size:12px; color:#9AA3BD}
+/* sections */
+section{padding:72px 0}
+.light{background:var(--bg-light)}
+.white{background:#fff}
+.dark{background:var(--navy-950); color:#EAF0FF}
+.sec-head{max-width:720px; margin:0 auto 36px; text-align:center}
+.sec-head h2{font-size:clamp(28px,3.6vw,44px); margin:12px 0 10px}
+.sec-head p{color:var(--muted); font-size:16px}
+.dark .sec-head p{color:#9AA3BD}
+/* tabs */
+.tabs{display:flex; gap:8px; justify-content:center; background:#fff; border:1px solid var(--line); padding:6px; border-radius:100px; width:fit-content; margin:0 auto 28px; max-width:100%; flex-wrap:wrap}
+.tab-btn{border:0; background:transparent; padding:12px 22px; border-radius:100px; font-weight:700; font-size:14px; cursor:pointer; color:var(--muted); min-height:44px}
+.tab-btn[aria-selected="true"]{background:var(--navy-900); color:#fff; box-shadow:0 8px 20px rgba(7,13,31,.25)}
+.tab-btn:hover{color:var(--ink)}
+.tab-panel{display:none; background:#fff; border:1px solid var(--line); border-radius:22px; overflow:hidden; box-shadow:var(--shadow)}
+.tab-panel.active{display:grid; grid-template-columns:1fr 1fr}
+.tab-media{position:relative; min-height:380px; background:var(--navy-900)}
+.tab-media img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.9}
+.tab-media .overlay{position:absolute; inset:0; background:linear-gradient(180deg,transparent 30%,rgba(5,9,20,.85))}
+.tab-media .cap{position:absolute; left:20px; right:20px; bottom:18px; color:#fff; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); backdrop-filter:blur(12px); border-radius:14px; padding:14px 16px; font-size:13.5px}
+.tab-content{padding:34px 32px}
+.tab-content h3{font-size:24px; margin-bottom:10px}
+.tab-content p{color:var(--muted); font-size:15px; margin-bottom:18px}
+.check-list{list-style:none; padding:0; margin:0 0 20px; display:grid; gap:10px}
+.check-list li{display:flex; gap:10px; align-items:flex-start; font-size:14.5px; font-weight:500}
+.check-list svg{flex-shrink:0; margin-top:3px}
+.calc{background:var(--bg-light); border:1px solid var(--line); border-radius:14px; padding:16px}
+.calc label{font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.calc input[type=range]{width:100%; accent-color:var(--green-deep); height:32px}
+.calc-row{display:flex; justify-content:space-between; font-size:14px; font-weight:600; margin:4px 0}
+.calc-out{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px}
+.calc-out div{background:var(--navy-900); color:#fff; border-radius:12px; padding:12px; text-align:center}
+.calc-out b{font-family:var(--font-h); font-size:18px; color:var(--gold-2)}
+.voice-demo{background:#0B1430; color:#fff; border-radius:14px; padding:16px; border:1px solid #1E2A5A}
+.wave{display:flex; align-items:center; gap:3px; height:44px; margin:12px 0}
+.wave i{flex:1; background:var(--green); border-radius:3px; min-height:6px; animation:eq 1.2s ease-in-out infinite alternate}
+.wave.paused i{animation-play-state:paused; opacity:.4}
+@keyframes eq{from{height:8px} to{height:38px}}
+.wave i:nth-child(odd){animation-delay:.15s} .wave i:nth-child(3n){animation-delay:.3s} .wave i:nth-child(4n){animation-delay:.5s}
+/* workspace */
+.ws-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+.ws-card{background:#fff; border:1px solid var(--line); border-radius:18px; padding:22px; position:relative; transition:.25s; overflow:hidden}
+.ws-card:hover{transform:translateY(-4px); box-shadow:var(--shadow); border-color:#CBD3E6}
+.ws-card .icon{width:44px; height:44px; border-radius:12px; display:grid; place-items:center; background:var(--navy-900); color:var(--gold-2); margin-bottom:14px}
+.ws-card .icon.green{background:var(--mint); color:var(--green-deep)}
+.ws-card h3{font-size:17px; margin-bottom:6px}
+.ws-card p{font-size:14px; color:var(--muted); margin-bottom:14px}
+.pill{display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:800; letter-spacing:.08em; padding:5px 10px; border-radius:100px; text-transform:uppercase}
+.pill.free{background:var(--mint); color:#0A6B42; border:1px solid #A8E9C8}
+.pill.credit{background:#FFF2C9; color:#7A5A00; border:1px solid #F1D67A}
+.pill.paid{background:#E8ECFF; color:#2A38A8; border:1px solid #B9C3FF}
+.mini{border-radius:12px; background:var(--bg-light); border:1px solid var(--line); padding:12px; font-size:12.5px; color:#334; display:flex; gap:10px; align-items:center}
+.mini img{width:56px; height:44px; object-fit:cover; border-radius:8px}
+/* capabilities */
+.cap-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:8px}
+.cap-col{background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12); border-radius:20px; padding:24px; backdrop-filter:blur(8px)}
+.cap-col.featured{background:linear-gradient(180deg,rgba(234,185,62,.16),rgba(255,255,255,.05)); border-color:rgba(234,185,62,.45)}
+.cap-col h3{color:#fff; font-size:19px; margin:10px 0 4px}
+.cap-col>p{font-size:13.5px; color:#9AA3BD; margin-bottom:16px}
+.cap-row{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:11px 0; border-top:1px solid rgba(255,255,255,.08); font-size:14px; color:#D6DDF0}
+.cap-row small{display:block; color:#8A95B2; font-size:12px}
+/* pricing */
+.price-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; align-items:stretch}
+.price-card{background:#fff; border:1px solid var(--line); border-radius:20px; padding:26px; display:flex; flex-direction:column}
+.price-card.dark-card{background:var(--navy-900); color:#fff; border-color:#1E2A5A}
+.price-card h3{font-size:18px} .price-card .amt{font-family:var(--font-h); font-size:36px; font-weight:800; margin:8px 0}
+.price-card ul{list-style:none; padding:0; margin:16px 0; display:grid; gap:9px; font-size:14px}
+.price-card li{display:flex; gap:9px; align-items:flex-start}
+/* proof */
+.proof-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+.proof-card{border:1.5px dashed #B9C2D6; background:#fff; border-radius:18px; padding:22px; text-align:left}
+.avatar{width:48px; height:48px; border-radius:50%; background:var(--navy-900); color:var(--gold-2); display:grid; place-items:center; font-weight:800; font-family:var(--font-h); margin-bottom:12px}
+.owner-tag{font-size:11px; font-weight:800; letter-spacing:.1em; background:#0B1430; color:#fff; display:inline-block; padding:6px 10px; border-radius:8px; margin-bottom:10px}
+/* faq */
+.faq{max-width:820px; margin:0 auto}
+.faq-item{background:#fff; border:1px solid var(--line); border-radius:14px; margin-bottom:12px; overflow:hidden}
+.faq-q{width:100%; background:none; border:0; padding:18px 20px; display:flex; justify-content:space-between; align-items:center; gap:12px; font-weight:700; font-size:15.5px; font-family:var(--font-h); cursor:pointer; text-align:left; min-height:56px}
+.faq-a{max-height:0; overflow:hidden; transition:max-height .3s ease; color:var(--muted); font-size:14.5px}
+.faq-a div{padding:0 20px 18px}
+.faq-item.open .faq-a{max-height:300px}
+.plus{width:32px; height:32px; border-radius:50%; background:var(--bg-light); border:1px solid var(--line); display:grid; place-items:center; flex-shrink:0; transition:.25s}
+.open .plus{background:var(--gold); border-color:var(--gold); transform:rotate(45deg)}
+/* CTA */
+.cta-box{position:relative; background:linear-gradient(135deg,#0A1330 0%,#0B1A3F 50%,#0E2A2B 100%); border:1px solid rgba(234,185,62,.35); border-radius:26px; padding:56px 40px; overflow:hidden; text-align:center; color:#fff}
+.cta-box:before{content:""; position:absolute; width:600px; height:600px; background:radial-gradient(circle,rgba(234,185,62,.22),transparent 65%); left:50%; top:-300px; transform:translateX(-50%)}
+.cta-box h2{font-size:clamp(28px,4vw,48px); position:relative}
+.cta-box p{color:#B9C2D8; position:relative; margin:12px auto 22px; max-width:560px}
+.addr-form{display:flex; gap:10px; max-width:560px; margin:0 auto; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); padding:6px; border-radius:100px; position:relative}
+.addr-form input{flex:1; background:transparent; border:0; color:#fff; padding:12px 18px; font-size:15px; outline:none; min-height:46px}
+.addr-form input::placeholder{color:#8A95B2}
+/* contact */
+.contact-grid{display:grid; grid-template-columns:.9fr 1.1fr 1fr; gap:18px}
+.c-card{background:#fff; border:1px solid var(--line); border-radius:18px; padding:24px}
+.c-card h3{font-size:18px; margin-bottom:10px}
+.c-line{display:flex; gap:10px; align-items:center; font-size:14px; margin:10px 0; color:#2A3350}
+.c-card input,.c-card textarea{width:100%; border:1px solid var(--line); border-radius:12px; padding:12px 14px; font-size:14px; margin-bottom:10px; font-family:inherit; min-height:46px; background:#F9FAFB}
+.c-card textarea{min-height:90px; resize:vertical}
+.map-ph{border-radius:14px; overflow:hidden; border:1px solid var(--line); background:#0B1430; color:#fff; position:relative; min-height:280px; display:flex; flex-direction:column}
+.map-ph img{height:150px; width:100%; object-fit:cover; opacity:.85}
+.map-inner{padding:16px}
+.form-msg{font-size:13px; font-weight:600; display:none; padding:10px 12px; border-radius:10px; margin-top:4px}
+.form-msg.ok{display:block; background:var(--mint); color:#0A6B42}
+.form-msg.err{display:block; background:#FEE2E2; color:#991B1B}
+/* footer */
+footer{background:#040713; color:#9AA3BD; padding:56px 0 24px; border-top:1px solid rgba(255,255,255,.08)}
+.foot-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr 1fr; gap:28px}
+.foot-grid h4{color:#fff; font-size:13px; letter-spacing:.1em; text-transform:uppercase; margin:0 0 14px}
+.foot-grid a{display:block; text-decoration:none; font-size:14px; padding:5px 0}
+.foot-grid a:hover{color:var(--gold-2)}
+.foot-bottom{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; border-top:1px solid rgba(255,255,255,.08); margin-top:32px; padding-top:18px; font-size:12.5px}
+/* modal */
+.modal{position:fixed; inset:0; z-index:200; display:none; place-items:center; padding:20px; background:rgba(4,7,19,.7); backdrop-filter:blur(8px)}
+.modal.open{display:grid}
+.modal-card{background:#fff; border-radius:20px; max-width:440px; width:100%; padding:28px; position:relative; box-shadow:var(--shadow-dark)}
+.modal-card h3{font-size:22px} .modal-card p{font-size:14px; color:var(--muted); margin:6px 0 16px}
+.modal-card input{width:100%; border:1px solid var(--line); border-radius:12px; padding:13px 14px; margin-bottom:10px; font-size:14px; min-height:46px}
+.close-x{position:absolute; right:14px; top:14px; width:36px; height:36px; border-radius:50%; border:1px solid var(--line); background:#fff; cursor:pointer}
+/* reveal */
+.reveal{opacity:0; transform:translateY(18px); transition:.6s ease}
+.reveal.in{opacity:1; transform:none}
+/* responsive */
+@media(max-width:1020px){
+.hero-inner{grid-template-columns:1fr; gap:28px} .hero-stats{grid-template-columns:1fr 1fr}
+.tab-panel.active{grid-template-columns:1fr} .tab-media{min-height:280px}
+.ws-grid,.cap-grid,.price-grid,.proof-grid{grid-template-columns:1fr 1fr}
+.contact-grid{grid-template-columns:1fr 1fr} .contact-grid .c-card:last-child{grid-column:1/-1}
+.foot-grid{grid-template-columns:1fr 1fr 1fr}
+}
+@media(max-width:768px){
+.nav-links,.nav-cta .login-link,.nav-cta .btn{display:none} .burger{display:grid}
+.mobile-menu.open{display:block}
+.ws-grid,.cap-grid,.price-grid,.proof-grid{grid-template-columns:1fr}
+.contact-grid{grid-template-columns:1fr}
+section{padding:56px 0}
+.addr-form{flex-direction:column; border-radius:18px} .addr-form button{width:100%}
+.hero-cta .btn{flex:1; min-width:160px}
+.foot-grid{grid-template-columns:1fr 1fr}
+.cta-box{padding:36px 20px}
+}
+@media(max-width:390px){
+.wrap{padding:0 16px} .hero-stats{grid-template-columns:1fr} .float-row{grid-template-columns:1fr} .prop-grid{grid-template-columns:1fr}
+.foot-grid{grid-template-columns:1fr} .tabs{width:100%} .tab-btn{flex:1}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header id="siteHeader">
+<div class="wrap nav">
+<a class="brand" href="#top" aria-label="Revamp365 home">
+<span class="brand-mark" aria-hidden="true">
+<svg viewBox="0 0 24 24" fill="none"><path d="M3 11.5 12 4l9 7.5" stroke="#F7D576" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10.5V19h12v-8.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><path d="M9.2 15.2h5.6M9.2 12.8h5.6" stroke="#2ECC8A" stroke-width="1.6" stroke-linecap="round"/><circle cx="18.2" cy="18.2" r="3.2" fill="#EAB93E"/><path d="M18.2 16.6v1.6l1.1 1" stroke="#1A1400" stroke-width="1.4" stroke-linecap="round"/></svg>
+</span>
+<span><span class="brand-name">Revamp365<span>.ai</span></span><br><span class="brand-sub">INVESTOR PLATFORM</span></span>
+</a>
+<nav class="nav-links" aria-label="Primary">
+<a href="#product">Product</a><span class="dot"></span>
+<a href="#workspace">Free Workspace</a><span class="dot"></span>
+<a href="#capabilities">Capabilities</a><span class="dot"></span>
+<a href="#pricing">Pricing</a><span class="dot"></span>
+<a href="#faq">FAQ</a><span class="dot"></span>
+<a href="#contact">Contact</a>
+</nav>
+<div class="nav-cta">
+<a class="login-link" href="#" onclick="openModal(event,'login')">Log in</a>
+<button class="btn btn-gold" onclick="openModal(event,'signup')">Create your free account</button>
+<button class="burger" id="burger" aria-expanded="false" aria-controls="mmenu" aria-label="Open menu">☰</button>
+</div>
+</div>
+<div class="mobile-menu" id="mmenu">
+<div style="display:grid; gap:6px; font-weight:600; color:#fff">
+<a href="#product" style="text-decoration:none; padding:12px 4px; border-bottom:1px solid rgba(255,255,255,.08)">Product</a>
+<a href="#workspace" style="text-decoration:none; padding:12px 4px; border-bottom:1px solid rgba(255,255,255,.08)">Free Workspace</a>
+<a href="#capabilities" style="text-decoration:none; padding:12px 4px; border-bottom:1px solid rgba(255,255,255,.08)">Capabilities</a>
+<a href="#pricing" style="text-decoration:none; padding:12px 4px; border-bottom:1px solid rgba(255,255,255,.08)">Pricing</a>
+<a href="#faq" style="text-decoration:none; padding:12px 4px; border-bottom:1px solid rgba(255,255,255,.08)">FAQ</a>
+<a href="#contact" style="text-decoration:none; padding:12px 4px;">Contact</a>
+<div style="display:flex; gap:10px; margin-top:12px">
+<button class="btn btn-gold" style="flex:1" onclick="openModal(event,'signup')">Create your free account</button>
+<button class="btn btn-outline" onclick="openModal(event,'login')">Log in</button>
+</div>
+</div>
+</div>
+</header>
+
+<main id="main">
+<!-- HERO -->
+<div class="hero" id="top">
+<div class="hero-bg"><div class="photo"><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1600&auto=format&fit=crop" alt="" aria-hidden="true"></div><div class="hero-grid-bg"></div></div>
+<div class="wrap">
+<div class="hero-inner">
+<div>
+<span class="hero-badge"><span class="pulse"></span> FREE-FOREVER RESEARCH WORKSPACE</span>
+<h1>Better data. Smarter comps. <em>Free forever.</em></h1>
+<p class="hero-sub">Search any property, check owner & on-market data, run accurate comps and underwrite deals in minutes. Build your first AI voice agent free — no card, no deadline.</p>
+<div class="hero-cta">
+<button class="btn btn-gold" onclick="openModal(event,'signup')">Create your free account →</button>
+<a class="btn btn-outline" href="#product">Explore the product</a>
+</div>
+<div class="reassure">
+<span><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#2ECC8A"/><path d="M5 8.2 7.2 10.4 11 6" stroke="#052412" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> No credit card required.</span>
+<span><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#EAB93E"/><path d="M8 4.5V8l2.2 1.5" stroke="#2A2003" stroke-width="1.6" stroke-linecap="round"/></svg> No trial deadline.</span>
+</div>
+<div class="hero-mini"><div>✓ Property + owner search</div><div>✓ Comps & valuations</div><div>✓ Calculators + POF</div><div>✓ Voice agent builder</div></div>
+</div>
+<div>
+<div class="browser" role="img" aria-label="Revamp365 free workspace preview showing property search, valuation and comps">
+<div class="browser-top"><span></span><span></span><span></span><div class="browser-url">🔒 app.revamp365.ai / workspace • <span class="live-dot"><span style="width:7px;height:7px;background:#2ECC8A;border-radius:50%;display:inline-block"></span> LIVE DATA</span></div></div>
+<div class="browser-body">
+<div class="search-row"><input id="heroSearch" value="" placeholder="Try: 1234 Maple Ave, Tampa, FL" aria-label="Property address search"><button onclick="heroLookup()">Search</button></div>
+<div class="prop-grid">
+<div class="prop-card"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop" alt="Sample investment property"><div class="pc"><h4 id="heroAddr">1234 Maple Ave, Tampa, FL</h4><p>3 bd • 2 ba • 1,624 sqft • Built 1987</p></div></div>
+<div class="valuation"><small>REVAMP ESTIMATE</small><br><strong id="heroVal">$342,500</strong><div style="font-size:12px; color:#B8F5D5">Confidence: High • 14 comps</div><div class="comp-bars" aria-hidden="true"><i style="height:60%"></i><i style="height:85%"></i><i style="height:70%"></i><i style="height:95%"></i><i style="height:78%"></i><i style="height:88%"></i><i style="height:65%"></i></div></div>
+</div>
+<div class="float-row">
+<div><span>Comp score</span><b style="color:#2ECC8A">92 / 100</b></div>
+<div><span>Proof of funds</span><b>✓ Ready</b></div>
+<div><span>Voice agent</span><b>✓ Built Free</b></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="hero-stats">
+<div><b>100% Free</b><br><span>Research workspace, forever</span></div>
+<div><b>6 Tools</b><br><span>Search, comps, calc, POF + AI</span></div>
+<div><b>U.S. Coverage</b><br><span>Property & on-market data</span></div>
+<div><b>~2 min</b><br><span>From address to offer math</span></div>
+</div>
+</div>
+</div>
+
+<!-- PRODUCT DEMO -->
+<section class="light" id="product">
+<div class="wrap">
+<div class="sec-head reveal"><span class="eyebrow"><i></i> Product demonstration</span><h2>One workspace. <span style="color:#0E9B63">From search to scale.</span></h2><p>Three simple steps. Less clicking, more closing. Switch tabs to see it in action.</p></div>
+<div class="tabs reveal" role="tablist" aria-label="Product demo tabs">
+<button class="tab-btn" role="tab" aria-selected="true" data-tab="t1" id="tab-t1">01 • Explore the data</button>
+<button class="tab-btn" role="tab" aria-selected="false" data-tab="t2" id="tab-t2">02 • Run the numbers</button>
+<button class="tab-btn" role="tab" aria-selected="false" data-tab="t3" id="tab-t3">03 • Put AI to work</button>
+</div>
+
+<div class="tab-panel active" id="t1" role="tabpanel" aria-labelledby="tab-t1">
+<div class="tab-media"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfDnDxrz9xAEtuC8_kipX8sLGRqJHBZ0A2kFwRTx5QtFRrgT70GTs8lvNc&s=10?q=80&w=1000&auto=format&fit=crop" alt="Neighborhood aerial with data overlay" loading="lazy"><div class="overlay"></div><div class="cap">📍 Map-first search • Owner records • MLS on-market feed • Filters for equity, absentee, vacant</div></div>
+<div class="tab-content"><span class="pill free">Free forever</span><h3 style="margin-top:10px">Explore the data</h3><p>Type any address. See owner, equity, beds/baths, on-market status and nearby comps instantly — clean, sourced, investor-ready.</p>
+<ul class="check-list"><li><svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="9" fill="#D9F8E8"/><path d="M5.5 9.2 8 11.7 12.5 6.5" stroke="#0E9B63" stroke-width="2" fill="none" stroke-linecap="round"/></svg> Property + owner search with equity & occupancy signals</li><li><svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="9" fill="#D9F8E8"/><path d="M5.5 9.2 8 11.7 12.5 6.5" stroke="#0E9B63" stroke-width="2" fill="none" stroke-linecap="round"/></svg> MLS / on-market search to avoid overpaying</li><li><svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="9" fill="#D9F8E8"/><path d="M5.5 9.2 8 11.7 12.5 6.5" stroke="#0E9B63" stroke-width="2" fill="none" stroke-linecap="round"/></svg> Comps & valuations with confidence scoring</li></ul>
+<button class="btn btn-dark" onclick="openModal(event,'signup')">Start exploring free</button>
+</div>
+</div>
+
+<div class="tab-panel" id="t2" role="tabpanel" aria-labelledby="tab-t2">
+<div class="tab-media"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1000&auto=format&fit=crop" alt="Modern renovated interior" loading="lazy"><div class="overlay"></div><div class="cap">🧮 Interactive underwriting • ARV, rehab, holding & profit update live as you drag</div></div>
+<div class="tab-content"><span class="pill free">Free forever</span><h3 style="margin-top:10px">Run the numbers</h3><p>Flip, BRRRR or wholesale — drag the sliders and watch your offer price, profit and ROI recalc instantly.</p>
+<div class="calc">
+<label>Purchase price — $<span id="vP">210000</span></label><input type="range" id="rP" min="100000" max="400000" step="5000" value="210000">
+<label>Rehab — $<span id="vR">45000</span></label><input type="range" id="rR" min="10000" max="120000" step="1000" value="45000">
+<label>ARV — $<span id="vA">342500</span></label><input type="range" id="rA" min="200000" max="500000" step="5000" value="342500">
+<div class="calc-out"><div><span style="font-size:11px; letter-spacing:.08em">EST. PROFIT</span><br><b id="oProfit">$62,500</b></div><div><span style="font-size:11px; letter-spacing:.08em">ROI</span><br><b id="oRoi">24.5%</b></div></div>
+</div>
+<div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap"><button class="btn btn-dark" onclick="openModal(event,'signup')">Save this deal free</button><span class="pill free">+ Proof of funds free</span></div>
+</div>
+</div>
+
+<div class="tab-panel" id="t3" role="tabpanel" aria-labelledby="tab-t3">
+<div class="tab-media"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000&auto=format&fit=crop" alt="Modern office building at dusk" loading="lazy"><div class="overlay"></div><div class="cap">🎙️ Acquisitions voice agent • Build free • Test with credits • Deploy campaigns on paid plans</div></div>
+<div class="tab-content"><span class="pill free">Builder free</span> <span class="pill credit">Testing uses credits</span> <span class="pill paid">Campaigns = paid</span><h3 style="margin-top:10px">Put AI to work</h3><p>Build a seller-qualifying voice agent in minutes. Script objections, booking and follow-up once — let AI handle the first touch.</p>
+<div class="voice-demo"><div style="display:flex; justify-content:space-between; align-items:center"><b>Acquisitions Agent v1</b><span class="live-dot">● READY</span></div><div class="wave" id="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div style="display:flex; gap:10px"><button id="playBtn" class="btn btn-gold" style="padding:10px 18px; min-height:44px" aria-pressed="false">▶ Preview voice</button><button class="btn btn-outline" style="padding:10px 18px; min-height:44px" onclick="openModal(event,'signup')">Open builder</button></div><p style="font-size:12px; color:#8A95B2; margin-top:10px">“Hi, this is Maya with Revamp — are you still considering an offer on Maple Ave?”</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FREE WORKSPACE -->
+<section class="white" id="workspace">
+<div class="wrap">
+<div class="sec-head reveal"><span class="eyebrow"><i></i> Free workspace</span><h2>Everything to research. <span style="color:#0E9B63">Nothing to pay.</span></h2><p>Six investor essentials included free-forever. No card. No countdown.</p></div>
+<div class="ws-grid">
+<div class="ws-card reveal"><div class="icon">⌕</div><span class="pill free">Free</span><h3>Property & owner search</h3><p>Owner, equity, occupancy, beds/baths and history in one clean profile.</p><div class="mini"><img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=200&auto=format&fit=crop" alt=""> 1234 Maple Ave • 68% equity • Absentee ✓</div></div>
+<div class="ws-card reveal"><div class="icon green">◈</div><span class="pill free">Free</span><h3>MLS / on-market search</h3><p>Live on-market feed to price against active competition.</p><div class="mini">● 14 active nearby • Median $339K • DOM 21</div></div>
+<div class="ws-card reveal"><div class="icon">◍</div><span class="pill free">Free</span><h3>Comps & valuations</h3><p>Adjusted comps with confidence score and ARV range.</p><div class="mini">▂▃▅▇ 14 comps • $328K–$356K • Score 92</div></div>
+<div class="ws-card reveal"><div class="icon green">₿</div><span class="pill free">Free</span><h3>Deal calculators</h3><p>Flip, rental & wholesale math with instant offer price.</p><div class="mini">Profit $62.5K • ROI 24.5% • Max offer $218K</div></div>
+<div class="ws-card reveal"><div class="icon">✦</div><span class="pill free">Free</span><h3>Proof of funds</h3><p>Generate a credible POF letter for agents & sellers in clicks.</p><div class="mini">✓ PDF ready • Verified funds • Expires in 30 days</div></div>
+<div class="ws-card reveal"><div class="icon green">♪</div><span class="pill free">Builder free</span><h3>Voice agent builder</h3><p>Build qualifying agents free. Testing uses credits.</p><div class="mini">🎙️ Maya • Qualifies • Books • Follows up</div></div>
+</div>
+</div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="dark" id="capabilities">
+<div class="wrap">
+<div class="sec-head reveal"><span class="eyebrow" style="color:#F7D576"><i></i> Capabilities • Free vs Credits vs Paid</span><h2 style="color:#fff">Start free. Add power <span style="color:#F7D576">only when you need it.</span></h2><p>No unlimited-usage claims. No hidden meters. Clear labels on what costs what.</p></div>
+<div class="cap-grid">
+<div class="cap-col reveal"><span class="pill free">Research and decide — Free</span><h3>Decide with confidence</h3><p>Your daily driver. Always free, no credits.</p>
+<div class="cap-row"><div>Property & owner search<small>Equity, occupancy, history</small></div><span class="pill free">Free</span></div>
+<div class="cap-row"><div>MLS / on-market search<small>Live listings nearby</small></div><span class="pill free">Free</span></div>
+<div class="cap-row"><div>Comps & valuations<small>Score + ARV range</small></div><span class="pill free">Free</span></div>
+<div class="cap-row"><div>Deal calculators<small>Flip / rent / wholesale</small></div><span class="pill free">Free</span></div>
+<div class="cap-row"><div>Proof of funds<small>PDF in one click</small></div><span class="pill free">Free</span></div>
+</div>
+<div class="cap-col featured reveal"><span class="pill credit">Add data & AI — Credits</span><h3>Enrich when it matters</h3><p>Pay only for what you use. No subscription needed.</p>
+<div class="cap-row"><div>Voice agent builder<small>Scripts, logic, booking</small></div><span class="pill free">Free</span></div>
+<div class="cap-row"><div>Voice agent testing<small>Live test calls & tuning</small></div><span class="pill credit">Credits</span></div>
+<div class="cap-row"><div>Skip tracing & enrichment<small>Phones, emails, verification</small></div><span class="pill credit">Credits</span></div>
+<div class="cap-row"><div>Bulk comps export<small>CSV for underwriting</small></div><span class="pill credit">Credits</span></div>
+</div>
+<div class="cap-col reveal"><span class="pill paid">Deploy and scale — Paid</span><h3>Automate & grow</h3><p>For teams running volume. Paid plans only.</p>
+<div class="cap-row"><div>Outbound campaigns<small>SMS / voice at scale</small></div><span class="pill paid">Paid</span></div>
+<div class="cap-row"><div>Specified workflows<small>Drip, nurture, routing</small></div><span class="pill paid">Paid</span></div>
+<div class="cap-row"><div>Team seats & roles<small>Permissions + pipelines</small></div><span class="pill paid">Paid</span></div>
+<div class="cap-row"><div>API & integrations<small>CRM + Zapier</small></div><span class="pill paid">Paid</span></div>
+</div>
+</div>
+<p style="text-align:center; font-size:13px; color:#8A95B2; margin-top:18px">Voice building is always free. Testing/tracing consume credits. Outbound campaigns & specified workflows require a paid plan.</p>
+</div>
+</section>
+
+<!-- PRICING -->
+<section class="light" id="pricing">
+<div class="wrap">
+<div class="sec-head reveal"><span class="eyebrow"><i></i> Pricing</span><h2>One platform. <span style="color:#0E9B63">Honest model.</span></h2><p>We don't publish invented discounts or guarantees. Start free, add credits if you need data, talk to us to scale.</p></div>
+<div class="price-grid">
+<div class="price-card reveal"><span class="pill free">Most popular to start</span><h3>Free Workspace</h3><div class="amt">$0 <span style="font-size:14px; font-weight:500; color:var(--muted)">forever</span></div><p style="font-size:14px; color:var(--muted)">For investors researching their next deal.</p><ul><li>✓ Property & owner search</li><li>✓ MLS search + comps</li><li>✓ Calculators + proof of funds</li><li>✓ Voice agent builder</li></ul><button class="btn btn-dark" style="margin-top:auto" onclick="openModal(event,'signup')">Create your free account</button><small style="text-align:center; margin-top:8px; color:var(--muted)">No credit card • No deadline</small></div>
+<div class="price-card reveal"><span class="pill credit">Pay as you go</span><h3>Flex Credits</h3><div class="amt">Credits</div><p style="font-size:14px; color:var(--muted)">Only when you need testing or enriched data.</p><ul><li>◍ Voice agent testing</li><li>◍ Skip tracing & verification</li><li>◍ Bulk exports</li><li>◍ Top-up anytime, never expire*</li></ul><a href="#faq" class="btn btn-light" style="margin-top:auto">How credits work</a><small style="text-align:center; margin-top:8px; color:var(--muted)">*Per current owner terms</small></div>
+<div class="price-card dark-card reveal"><span class="pill paid" style="background:#fff; border-color:#fff">For teams</span><h3>Scale Plans</h3><div class="amt">Paid</div><p style="font-size:14px; color:#9AA3BD">For outbound volume & automation.</p><ul><li>✓ Outbound campaigns</li><li>✓ Specified workflows</li><li>✓ Team seats, API & support</li><li>✓ Onboarding & coverage review</li></ul><a href="#contact" class="btn btn-gold" style="margin-top:auto">Talk to our team</a><small style="text-align:center; margin-top:8px; color:#9AA3BD">Custom scope — no invented pricing shown</small></div>
+</div>
+</div>
+</section>
+
+<!-- PROOF -->
+<section class="white" id="proof">
+<div class="wrap">
+<div class="sec-head reveal"><span class="eyebrow"><i></i> Customer proof</span><h2>Real stories, <span style="color:#0E9B63">owner-provided.</span></h2><p>We don't fabricate quotes, names, ratings or results. These slots are reserved for verified Revamp365 customers.</p></div>
+<div class="proof-grid">
+<div class="proof-card reveal"><span class="owner-tag">PLACEHOLDER • OWNER-PROVIDED</span><div class="avatar">—</div><h3 style="font-size:16px">Customer story #1</h3><p style="font-size:14px; color:var(--muted)">Awaiting approved customer quote, name, market and result. To be added by Revamp365 owner.</p><p style="font-size:12px; color:#8A95B2; margin-top:10px">No fabricated rating shown.</p></div>
+<div class="proof-card reveal"><span class="owner-tag">PLACEHOLDER • OWNER-PROVIDED</span><div class="avatar">—</div><h3 style="font-size:16px">Customer story #2</h3><p style="font-size:14px; color:var(--muted)">Awaiting approved customer quote, role and use case (comps / calculators / voice AI).</p><p style="font-size:12px; color:#8A95B2; margin-top:10px">No fabricated outcome shown.</p></div>
+<div class="proof-card reveal"><span class="owner-tag">PLACEHOLDER • OWNER-PROVIDED</span><div class="avatar">—</div><h3 style="font-size:16px">Customer story #3</h3><p style="font-size:14px; color:var(--muted)">Awaiting approved video or written testimonial. Contact us to become a featured investor.</p><div style="margin-top:12px"><button class="btn btn-dark" style="padding:10px 18px; font-size:13px" onclick="openModal(event,'signup')">Become an early user</button></div></div>
+</div>
+</div>
+</section>
+
+<!-- FAQ -->
+<section class="light" id="faq">
+<div class="wrap">
+<div class="sec-head reveal"><span class="eyebrow"><i></i> FAQ</span><h2>Questions, answered clearly.</h2><p>Source of truth: green redesign copy. No fine-print surprises.</p></div>
+<div class="faq reveal">
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Is the research workspace really free forever? <span class="plus">+</span></button><div class="faq-a"><div>Yes. Property & owner search, MLS/on-market search, comps & valuations, deal calculators, proof of funds and the voice agent builder are included free with no credit card and no trial deadline.</div></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">What costs credits? <span class="plus">+</span></button><div class="faq-a"><div>Only usage-based actions: voice-agent testing/tuning calls, skip tracing/data enrichment and bulk exports. Building your voice agent itself is free.</div></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">What requires a paid plan? <span class="plus">+</span></button><div class="faq-a"><div>Outbound campaigns at scale and specified automated workflows, plus team features like seats, advanced routing, API and priority support.</div></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Do I need a credit card to start? <span class="plus">+</span></button><div class="faq-a"><div>No. Create your free account with just name and email. Add payment only if you later choose to buy credits or a paid plan.</div></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Who is Revamp365.ai for? <span class="plus">+</span></button><div class="faq-a"><div>Wholesalers, flippers, landlords and acquisition teams who want better data, faster comps and AI follow-up — from first deal to portfolio scale.</div></div></div>
+<div class="faq-item"><button class="faq-q" aria-expanded="false">Can I use my own property to test it? <span class="plus">+</span></button><div class="faq-a"><div>Yes — that's the best way. Scroll to “Start with a property you know,” enter an address you know well, and compare our estimate and comps to what you know.</div></div></div>
+</div>
+</div>
+</section>
+
+<!-- CLOSING CTA -->
+<section class="white" id="cta">
+<div class="wrap">
+<div class="cta-box reveal">
+<h2>Start with a property you know</h2>
+<p>Enter an address you know well. We'll pull the data, comps and numbers — free — so you can judge the quality yourself.</p>
+<form class="addr-form" onsubmit="return ctaSubmit(event)"><input id="ctaAddr" placeholder="Enter a property address… e.g. 1234 Maple Ave, Tampa, FL" aria-label="Property address"><button class="btn btn-gold" type="submit">Create your free account</button></form>
+<p style="font-size:13px; margin-top:14px">No credit card required. No trial deadline. • Free includes search, comps, calculators, POF & agent builder</p>
+</div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section class="light" id="contact" style="padding-top:0">
+<div class="wrap">
+<div class="sec-head reveal"><span class="eyebrow"><i></i> Contact us</span><h2>Talk to a human.</h2><p>Questions on coverage, credits or scale plans? We reply within one business day.</p></div>
+<div class="contact-grid">
+<div class="c-card reveal"><h3>Details</h3><div class="c-line">✉️ <b>hello@revamp365.ai</b></div><div class="c-line">◷ Mon–Fri • 9am–6pm CT</div><div class="c-line">⌖ U.S. investor coverage</div><hr style="border:0; border-top:1px solid var(--line); margin:14px 0"><p style="font-size:13.5px; color:var(--muted)">Prefer email? Send your market + what you want to research and we'll point you to the right workspace view.</p><a href="mailto:hello@revamp365.ai" class="btn btn-dark" style="margin-top:12px; width:100%">Email us</a></div>
+<div class="c-card reveal"><h3>Send a message</h3><form id="cform" onsubmit="return contactSubmit(event)" novalidate><input id="cname" placeholder="Full name" aria-label="Full name" required><input id="cemail" type="email" placeholder="Work email" aria-label="Email" required><textarea id="cmsg" placeholder="How can we help? (e.g. coverage in Dallas, credit question…)" aria-label="Message" required></textarea><button class="btn btn-gold" style="width:100%" type="submit">Send message</button><div class="form-msg" id="cmsgBox" role="status"></div></form></div>
+<div class="map-ph reveal"><img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=800&auto=format&fit=crop" alt="Map placeholder background"><div class="map-inner"><span class="pill free">Map placeholder</span><h3 style="margin:10px 0 6px; font-size:16px">Business location to be confirmed</h3><p style="font-size:13px; color:#9AA3BD">Real address & embedded Google Map will appear here once confirmed by owner. No location is fabricated.</p><div style="display:flex; gap:8px; margin-top:12px"><a class="btn btn-outline" style="flex:1; font-size:13px" href="https://maps.google.com" target="_blank" rel="noopener">Open Google Maps</a><a class="btn btn-gold" style="flex:1; font-size:13px" href="#cta">Get directions later</a></div></div></div>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="wrap">
+<div class="foot-grid">
+<div><a class="brand" href="#top" style="margin-bottom:12px"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M3 11.5 12 4l9 7.5" stroke="#F7D576" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10.5V19h12v-8.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><circle cx="18.2" cy="18.2" r="3.2" fill="#EAB93E"/></svg></span><span><span class="brand-name">Revamp365<span>.ai</span></span><br><span class="brand-sub">INVESTOR PLATFORM</span></span></a><p style="font-size:13.5px; max-width:280px">Better data. Smarter comps. Free forever. Built for investors who move first.</p><div style="display:flex; gap:8px; margin-top:12px"><a href="#" aria-label="X" style="width:36px;height:36px;border:1px solid rgba(255,255,255,.15);border-radius:10px;display:grid;place-items:center">𝕏</a><a href="#" aria-label="LinkedIn" style="width:36px;height:36px;border:1px solid rgba(255,255,255,.15);border-radius:10px;display:grid;place-items:center">in</a><a href="#" aria-label="YouTube" style="width:36px;height:36px;border:1px solid rgba(255,255,255,.15);border-radius:10px;display:grid;place-items:center">▶</a></div></div>
+<div><h4>Platform</h4><a href="#workspace">Property search</a><a href="#workspace">MLS search</a><a href="#workspace">Comps & valuations</a><a href="#workspace">Calculators</a><a href="#workspace">Voice agents</a></div>
+<div><h4>Company</h4><a href="#proof">Customers</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="#contact">Contact us</a><a href="#cta">Create account</a></div>
+<div><h4>Coverage</h4><a href="#workspace">U.S. properties</a><a href="#workspace">On-market feed</a><a href="#capabilities">Credit data</a><a href="#contact">Request market</a></div>
+<div><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Fair Housing</a><a href="#">Data sources</a></div>
+</div>
+<div class="foot-bottom"><span>© 2026 Revamp365.ai — All rights reserved. Concept homepage. Developed by Md. Mahbubur Rahman. No confidential contest material disclosed.</span><span>No credit card required • No trial deadline</span></div>
+</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+<div class="modal-card"><button class="close-x" onclick="closeModal()" aria-label="Close">✕</button>
+<div id="mSignup"><h3 id="mTitle">Create your free account</h3><p>Free-forever workspace. No credit card. No deadline. <span id="mAddrLine" style="color:#0E9B63; font-weight:700"></span></p>
+<form onsubmit="return signupSubmit(event)"><input placeholder="Full name" required aria-label="Full name"><input type="email" placeholder="Work email" required aria-label="Email"><input type="password" placeholder="Create password (8+ chars)" minlength="8" required aria-label="Password"><button class="btn btn-gold" style="width:100%" type="submit">Create your free account</button></form>
+<p style="font-size:12px; text-align:center; margin-top:10px">By continuing you agree to Terms & Privacy. <a href="#" style="color:#0E9B63">Why free?</a></p></div>
+<div id="mDone" style="display:none; text-align:center"><div style="width:56px;height:56px;background:var(--mint);border-radius:50%;display:grid;place-items:center;font-size:26px;margin:0 auto 12px">✓</div><h3>You're on the list!</h3><p>Check your inbox to verify and open your free workspace. Start with a property you know.</p><button class="btn btn-dark" style="width:100%" onclick="closeModal()">Explore the product</button></div>
+<div id="mLogin" style="display:none"><h3>Welcome back</h3><p>Log in to your Revamp365 workspace.</p><form onsubmit="return signupSubmit(event)"><input type="email" placeholder="Email" required aria-label="Email"><input type="password" placeholder="Password" required aria-label="Password"><button class="btn btn-dark" style="width:100%" type="submit">Log in</button></form></div>
+</div>
+</div>
+
+<script>
+const header=document.getElementById('siteHeader');
+addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>10),{passive:true});
+const burger=document.getElementById('burger'), mmenu=document.getElementById('mmenu');
+burger.onclick=()=>{const open=mmenu.classList.toggle('open');burger.setAttribute('aria-expanded',open);burger.textContent=open?'✕':'☰'};
+mmenu.querySelectorAll('a').forEach(a=>a.onclick=()=>{mmenu.classList.remove('open');burger.textContent='☰'});
+// tabs
+document.querySelectorAll('.tab-btn').forEach(b=>b.onclick=()=>{
+document.querySelectorAll('.tab-btn').forEach(x=>x.setAttribute('aria-selected','false'));
+b.setAttribute('aria-selected','true');
+document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+document.getElementById(b.dataset.tab).classList.add('active');
+});
+// faq
+document.querySelectorAll('.faq-item').forEach(item=>{
+const q=item.querySelector('.faq-q');
+q.onclick=()=>{
+const open=item.classList.contains('open');
+document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-q').setAttribute('aria-expanded','false')});
+if(!open){item.classList.add('open');q.setAttribute('aria-expanded','true')}
+};
+q.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();q.click()}};
+});
+// calculator
+const rP=document.getElementById('rP'),rR=document.getElementById('rR'),rA=document.getElementById('rA');
+function updCalc(){
+const P=+rP.value,R=+rR.value,A=+rA.value;
+document.getElementById('vP').textContent=P.toLocaleString();
+document.getElementById('vR').textContent=R.toLocaleString();
+document.getElementById('vA').textContent=A.toLocaleString();
+const profit=A-P-R-25000;
+const roi=(profit/(P+R)*100);
+document.getElementById('oProfit').textContent=(profit<0?'-$':'$')+Math.abs(profit).toLocaleString();
+document.getElementById('oRoi').textContent=roi.toFixed(1)+'%';
+}
+[rP,rR,rA].forEach(r=>r.addEventListener('input',updCalc));updCalc();
+// voice preview
+const playBtn=document.getElementById('playBtn'),wave=document.getElementById('wave');
+wave.classList.add('paused');
+playBtn.onclick=()=>{
+const playing=playBtn.getAttribute('aria-pressed')==='true';
+playBtn.setAttribute('aria-pressed',!playing);
+wave.classList.toggle('paused',playing);
+playBtn.textContent=playing?'▶ Preview voice':'⏸ Playing… tap to pause';
+if(!playing){setTimeout(()=>{if(playBtn.getAttribute('aria-pressed')==='true'){playBtn.click()}},6000)}
+};
+// hero lookup fake
+function heroLookup(){
+const v=document.getElementById('heroSearch').value.trim();
+if(v)document.getElementById('heroAddr').textContent=v;
+const base=320000+Math.floor(Math.random()*50000);
+document.getElementById('heroVal').textContent='$'+base.toLocaleString();
+}
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// modal
+const modal=document.getElementById('modal');
+function openModal(e,type){
+if(e)e.preventDefault();
+document.getElementById('mSignup').style.display=type==='signup'?'block':'none';
+document.getElementById('mLogin').style.display=type==='login'?'block':'none';
+document.getElementById('mDone').style.display='none';
+modal.classList.add('open');document.body.style.overflow='hidden';
+}
+function closeModal(){modal.classList.remove('open');document.body.style.overflow=''}
+modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
+addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+function signupSubmit(e){e.preventDefault();document.getElementById('mSignup').style.display='none';document.getElementById('mLogin').style.display='none';document.getElementById('mDone').style.display='block';return false}
+function ctaSubmit(e){
+e.preventDefault();
+const v=document.getElementById('ctaAddr').value.trim();
+document.getElementById('mAddrLine').textContent=v?(' — '+v):'';
+openModal(null,'signup');return false
+}
+function contactSubmit(e){
+e.preventDefault();
+const n=document.getElementById('cname').value.trim(), em=document.getElementById('cemail').value.trim(), ms=document.getElementById('cmsg').value.trim();
+const box=document.getElementById('cmsgBox');
+if(!n||!em.includes('@')||!ms){box.className='form-msg err';box.textContent='Please add your name, valid email and a short message.';return false}
+box.className='form-msg ok';box.textContent='Thanks '+n.split(' ')[0]+'! Message received — we’ll reply within one business day.';
+e.target.reset();return false
+}
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'))}
+</script>
+</body>
+</html>
